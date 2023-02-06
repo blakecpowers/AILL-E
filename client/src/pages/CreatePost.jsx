@@ -22,8 +22,36 @@ const CreatePost = () => {
   // Another state for if we're loading or not.
   const [loading, setLoading] = useState(false);
 
-  const generateImage = () => {
+  // Integrate frontend with backend here.
+  // On click of generate, call this function. (function is async because we have an await below)
+  const generateImage = async () => {
+    if (form.prompt) {
+      try {
+        // Set the loading icon to true.
+        setGeneratingImg(true);
 
+        // Fetch the response from our dalle server endpoint.
+        // Method is type post. 
+        // Pass headers of Content-Type: JSON.
+        // Pass the body of the prompt set from the form.
+        const response = await fetch('http://localhost:3275/api/v1/dalle' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({prompt: form.prompt}),
+        })
+        // Get data from the response and set the form to have this photo.
+        const data = await response.json();
+        setForm({...form, photo: `data:image/jpeg;base64,${data.photo}`})
+      } catch (error) {
+        alert(error);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert('Please enter a prompt');
+    }
   }
 
   // 
