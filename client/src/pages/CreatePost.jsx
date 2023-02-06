@@ -107,7 +107,7 @@ const CreatePost = () => {
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
-            hndleSurpriseMe={handleSurpriseMe}
+            handleSurpriseMe={handleSurpriseMe}
           />
 
           {/* Here is the place where an AI generated image will be shown. Or, if it hasn't yet, a container */}
