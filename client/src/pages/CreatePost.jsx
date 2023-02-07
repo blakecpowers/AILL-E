@@ -34,7 +34,7 @@ const CreatePost = () => {
         // Method is type post. 
         // Pass headers of Content-Type: JSON.
         // Pass the body of the prompt set from the form.
-        const response = await fetch('http://localhost:3275/api/v1/dalle' , {
+        const response = await fetch('https://aille.onrender.com/api/v1/dalle' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const CreatePost = () => {
 
       try {
         // Call the post image route.
-        const response = await fetch('http://localhost:3275/api/v1/post',
+        const response = await fetch('https://aille.onrender.com/api/v1/post',
         {
           method: 'POST',
           headers : {

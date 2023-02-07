@@ -34,7 +34,7 @@ const startServer = async () => {
     try {
         connectDB(process.env.MONGODB_URL);
         app.listen(3275, () => {
-            console.log('Server has started on http://localhost:3275')
+            console.log('Server has started on https://aille.onrender.com')
         })
     } catch(error) {
         console.log(error);
