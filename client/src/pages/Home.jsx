@@ -8,6 +8,49 @@ const Home = () => {
 
     const [searchText, setSearchText] = useState("");
 
+    const[searchTimeout, setSearchTimeout] = useState(null);
+    const[searchedResults, setSearchedResults] = useState(null);
+
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true);
+
+            try {
+                const response = await fetch('http://localhost:3275/api/v1/post', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    setAllPosts(result.data.reverse());
+                }
+            } catch (err) {
+                alert(err);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchPosts();
+    }, []);
+
+    const handleSearchChange = (e) => {
+        clearTimeout(searchTimeout);
+
+        setSearchText(e.target.value);
+
+        setSearchTimeout(
+            setTimeout(() => {
+                const searchResults = allPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()) || item.prompt.toLowerCase().includes(searchText.toLowerCase()));
+                setSearchedResults(searchResults);
+            }, 500)
+        );
+    }
+
     // Generic React Functional Component to Render Cards. 
     // We accept two parameters: data and title. 
     // If data exists, we want to map over each post/image and render all the cards.
@@ -37,7 +80,14 @@ const Home = () => {
 
             {/* Call form field component */}
             <div className='mt-16'>
-                <FormField />
+                <FormField
+                    LabelName="Search posts"
+                    type="text"
+                    name="text"
+                    placeholder="Search posts"
+                    value={searchText}
+                    handleChange={handleSearchChange}
+                />
             </div>
 
             {/* Using the React state, check if we are currently loading. If so, display the loader component. 
@@ -64,7 +114,7 @@ const Home = () => {
                             If no search results, provide title of no search results found. */}
                             {searchText ? (
                                 <RenderCards
-                                    data={[]}
+                                    data={searchedResults}
                                     title="No search results found"
                                 />
                             ) : (
@@ -72,7 +122,7 @@ const Home = () => {
                                 // Data passed will be all posts and title could be no posts found if there aren't any posts.
                                 
                                 <RenderCards
-                                    data={[]}
+                                    data={allPosts}
                                     title="No posts found"
                                 />
                             )}

@@ -54,9 +54,40 @@ const CreatePost = () => {
     }
   }
 
-  // 
-  const handleSubmit = () => {
+  // Handle submiting of the post to share with the community.
+  // Pass in the "submit" event.
+  const handleSubmit = async (e) => {
+    // Prevent browser from reloading on submit.
+    e.preventDefault();
 
+    if (form.prompt && form.photo) {
+      setLoading(true);
+
+      try {
+        // Call the post image route.
+        const response = await fetch('http://localhost:3275/api/v1/post',
+        {
+          method: 'POST',
+          headers : {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form)
+        })
+
+        // Wait for the response to come back.
+        await response.json();
+
+        // Navigate to the home to see the image.
+        navigate('/');
+      
+      } catch (err) {
+        alert(err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert('Please enter a prompt and generate an image')
+    }
   }
 
   // This function actually lets us type in the form fields.
