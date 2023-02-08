@@ -57,6 +57,7 @@ const CreatePost = () => {
   // Handle submiting of the post to share with the community.
   // Pass in the "submit" event.
   const handleSubmit = async (e) => {
+    // Disabling the following for now until regulations are put into play - 
     // // Prevent browser from reloading on submit.
     // e.preventDefault();
 
