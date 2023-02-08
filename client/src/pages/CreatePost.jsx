@@ -57,37 +57,38 @@ const CreatePost = () => {
   // Handle submiting of the post to share with the community.
   // Pass in the "submit" event.
   const handleSubmit = async (e) => {
-    // Prevent browser from reloading on submit.
-    e.preventDefault();
+    // // Prevent browser from reloading on submit.
+    // e.preventDefault();
 
-    if (form.prompt && form.photo) {
-      setLoading(true);
+    // if (form.prompt && form.photo) {
+    //   setLoading(true);
 
-      try {
-        // Call the post image route.
-        const response = await fetch('https://aille.onrender.com/api/v1/post',
-        {
-          method: 'POST',
-          headers : {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(form)
-        })
+    //   try {
+    //     // Call the post image route.
+    //     const response = await fetch('https://aille.onrender.com/api/v1/post',
+    //     {
+    //       method: 'POST',
+    //       headers : {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(form)
+    //     })
 
-        // Wait for the response to come back.
-        await response.json();
+    //     // Wait for the response to come back.
+    //     await response.json();
 
-        // Navigate to the home to see the image.
-        navigate('/');
+    //     // Navigate to the home to see the image.
+    //     navigate('/');
       
-      } catch (err) {
-        alert(err);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      alert('Please enter a prompt and generate an image')
-    }
+    //   } catch (err) {
+    //     alert(err);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // } else {
+    //   alert('Please enter a prompt and generate an image')
+    // }
+    alert('Sorry! Posting to the Community Showcase is prevented until we implement Community Showcase Guideline Regulations.')
   }
 
   // This function actually lets us type in the form fields.
