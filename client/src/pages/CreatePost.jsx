@@ -89,6 +89,7 @@ const CreatePost = () => {
     // } else {
     //   alert('Please enter a prompt and generate an image')
     // }
+    e.preventDefault();
     alert('Sorry! Posting to the Community Showcase is prevented until we implement Community Showcase Guideline Regulations.')
   }
 
